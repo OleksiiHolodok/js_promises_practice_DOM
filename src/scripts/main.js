@@ -39,16 +39,20 @@ const firstPromise = new Promise((resolve, reject) => {
 const secondPromise = new Promise((resolve) => {
   const successMessage = 'Second promise was resolved';
 
-  const onLeftClick = () => {
-    leftClick = true;
-    resolve(successMessage);
-    clear(onLeftClick, onRightClick);
+  const onLeftClick = (ev) => {
+    if (ev.button === 0) {
+      leftClick = true;
+      resolve(successMessage);
+      clear(onLeftClick, onRightClick);
+    }
   };
 
-  const onRightClick = () => {
-    rightClick = true;
-    resolve(successMessage);
-    clear(onLeftClick, onRightClick);
+  const onRightClick = (ev) => {
+    if (ev.button === 2) {
+      rightClick = true;
+      resolve(successMessage);
+      clear(onLeftClick, onRightClick);
+    }
   };
 
   document.addEventListener('click', onLeftClick);
@@ -58,21 +62,25 @@ const secondPromise = new Promise((resolve) => {
 const thirdPromise = new Promise((resolve) => {
   const successMessage = 'Third promise was resolved';
 
-  const onLeftClick = () => {
-    leftClick = true;
+  const onLeftClick = (ev) => {
+    if (ev.button === 0) {
+      leftClick = true;
 
-    if (leftClick && rightClick) {
-      resolve(successMessage);
-      clear(onLeftClick, onRightClick);
+      if (leftClick && rightClick) {
+        resolve(successMessage);
+        clear(onLeftClick, onRightClick);
+      }
     }
   };
 
-  const onRightClick = () => {
-    rightClick = true;
+  const onRightClick = (ev) => {
+    if (ev.buttons === 2) {
+      rightClick = true;
 
-    if (leftClick && rightClick) {
-      resolve(successMessage);
-      clear(onLeftClick, onRightClick);
+      if (leftClick && rightClick) {
+        resolve(successMessage);
+        clear(onLeftClick, onRightClick);
+      }
     }
   };
 
